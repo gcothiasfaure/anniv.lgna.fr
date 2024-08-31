@@ -33,7 +33,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
-          source: "docker-compose.yml"
+          source: "./docker-compose.yml"
           rm: true
           target: "/home/debian/lgna-sandbox/anniv.lgna.fr"
 
