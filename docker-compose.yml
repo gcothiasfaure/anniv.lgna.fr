@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  anniv.lgna.fr:
+    image: gaspardcothiasfaure/anniv.lgna.fr:0.1
+    container_name: anniv.lgna.fr
+    restart: always
+    volumes:
+      - "./output.txt:/app/output.txt"
