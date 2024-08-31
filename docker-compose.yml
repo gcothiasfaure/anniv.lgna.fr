@@ -6,4 +6,4 @@ services:
     container_name: anniv.lgna.fr
     restart: always
     volumes:
-      - "/home/debian/lgna-sandbox/anniv.lgna.fr/output.txt:/app/output.txt"
+      - "/home/debian/lgna-sandbox/anniv.lgna.fr/output:/app/output"
