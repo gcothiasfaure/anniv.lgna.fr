@@ -5,5 +5,8 @@ services:
     image: gaspardcothiasfaure/anniv.lgna.fr:0.1
     container_name: anniv.lgna.fr
     restart: always
+    environment:
+      - NOTION_API_TOKEN=${NOTION_API_TOKEN}
+      - RESEND_API_KEY=${RESEND_API_KEY}
     volumes:
       - "/home/debian/lgna-sandbox/anniv.lgna.fr/output:/app/output"
