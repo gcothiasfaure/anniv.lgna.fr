@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  docker:
+  build-publish-docker-hub:
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
