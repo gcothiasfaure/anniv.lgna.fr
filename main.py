@@ -14,7 +14,8 @@ NOTION_HEADERS = {
     "content-type": "application/json",
     "Authorization": "Bearer "+NOTION_API_TOKEN
 }
-
+print(RESEND_API_KEY)
+print(NOTION_API_TOKEN)
 def getBirthdatesFromNotion():
     uri = NOTION_API_URL+"/databases/"+NOTION_DATABASE_ID+"/query"
     response = requests.post(uri,headers=NOTION_HEADERS)
