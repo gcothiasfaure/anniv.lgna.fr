@@ -33,8 +33,8 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
-          source: "."
-          rm: true
+          source: "docker-compose.yml"
+          overwrite: true
           target: "/home/debian/lgna-sandbox/anniv.lgna.fr"
 
       - name: Pull latest Docker image and launch docker-compose.yml
