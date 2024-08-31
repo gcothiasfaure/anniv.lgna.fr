@@ -28,12 +28,12 @@ jobs:
           tags: gaspardcothiasfaure/anniv.lgna.fr:0.1
 
       - name: Copy docker-compose.yml into VPS
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
-          source: "./docker-compose.yml"
+          source: "docker-compose.yml"
           rm: true
           target: "/home/debian/lgna-sandbox/anniv.lgna.fr"
 
