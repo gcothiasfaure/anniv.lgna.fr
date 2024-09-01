@@ -2,6 +2,13 @@ import resend
 from datetime import datetime
 import os
 import requests
+import logging
+import schedule
+import time
+
+logging.basicConfig(filename='./output/output.log',
+                    level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 DATE_JOUR = datetime.today().strftime("%d/%m")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
@@ -14,8 +21,7 @@ NOTION_HEADERS = {
     "content-type": "application/json",
     "Authorization": "Bearer "+NOTION_API_TOKEN
 }
-print(RESEND_API_KEY)
-print(NOTION_API_TOKEN)
+
 def getBirthdatesFromNotion():
     uri = NOTION_API_URL+"/databases/"+NOTION_DATABASE_ID+"/query"
     response = requests.post(uri,headers=NOTION_HEADERS)
@@ -75,13 +81,18 @@ def sendEmail(today_birthdates):
     email = resend.Emails.send(params)
     return email
 
-# Logique ici
-birthdates = getBirthdatesFromNotion()
-today_birthdates = checkTodayBirthdays(birthdates)
-print(DATE_JOUR+"/"+str(datetime.today().year))
-if len(today_birthdates)>0:
-    sendEmail(today_birthdates)
-    print(str(len(today_birthdates))+" anniversaire(s) ce jour : "+' - '.join([contact['name'] for contact in today_birthdates]))
-else:
-    print("Pas d'anniversaire ce jour")
-print("")
+def job():
+    # Logique ici
+    birthdates = getBirthdatesFromNotion()
+    today_birthdates = checkTodayBirthdays(birthdates)
+    if len(today_birthdates)>0:
+        sendEmail(today_birthdates)
+        logging.info(str(len(today_birthdates))+" anniversaire(s) ce jour : "+' - '.join([contact['name'] for contact in today_birthdates]))
+    else:
+        logging.info("Pas d'anniversaire ce jour")
+
+schedule.every(1).minutes.do(job)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
