@@ -91,8 +91,7 @@ def job():
     else:
         logging.info("Pas d'anniversaire ce jour")
 
-schedule.every(1).minutes.do(job)
-# schedule.every().day.at("08:37", "Europe/Paris").do(job)
+schedule.every().day.at("08:37", "Europe/Paris").do(job)
 
 while True:
     schedule.run_pending()
