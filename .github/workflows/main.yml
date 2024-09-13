@@ -25,7 +25,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: gaspardcothiasfaure/anniv.lgna.fr:0.1
+          tags: gaspardcothiasfaure/anniv.lgna.fr:0.2
 
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -47,5 +47,5 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            docker pull gaspardcothiasfaure/anniv.lgna.fr:0.1
+            docker pull gaspardcothiasfaure/anniv.lgna.fr:0.2
             docker-compose -f /home/debian/lgna-sandbox/anniv.lgna.fr/docker-compose.yml --env-file /home/debian/lgna-sandbox/anniv.lgna.fr/.env up -d

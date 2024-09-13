@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   anniv.lgna.fr:
-    image: gaspardcothiasfaure/anniv.lgna.fr:0.1
+    image: gaspardcothiasfaure/anniv.lgna.fr:0.2
     container_name: anniv.lgna.fr
     restart: always
     environment:

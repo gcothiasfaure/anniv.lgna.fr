@@ -5,10 +5,16 @@ import requests
 import logging
 import schedule
 import time
+from pytz import timezone
+
+def timetz(*args):
+    return datetime.now(timezone('Europe/Paris')).timetuple()
+logging.Formatter.converter = timetz
 
 logging.basicConfig(filename='./output/output.log',
                     level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+                    format='%(asctime)s : %(message)s',
+                    datefmt='%d/%m/%Y %H:%M:%S')
 
 DATE_JOUR = datetime.today().strftime("%d/%m")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
@@ -87,15 +93,26 @@ def sendEmail(today_birthdates):
 
 def job():
     # Logique ici
+    print("début du programme")
+    print(NOTION_API_TOKEN)
+    print(RESEND_API_KEY)
     birthdates = getBirthdatesFromNotion()
+    print("birthdates :")
+    print(birthdates)
     today_birthdates = checkTodayBirthdays(birthdates)
+    print("today_birthdates :")
+    print(today_birthdates)
     if len(today_birthdates)>0:
+        print("len(today_birthdates)>0")
         sendEmail(today_birthdates)
         logging.info(str(len(today_birthdates))+" anniversaire(s) ce jour : "+' - '.join([contact['name'] for contact in today_birthdates]))
     else:
+        print("len(today_birthdates)=0")
         logging.info("Pas d'anniversaire ce jour")
+    print("Fin du programme")
 
-schedule.every().day.at("08:37", "Europe/Paris").do(job)
+schedule.every(1).minutes.do(job)
+# schedule.every().day.at("08:37", "Europe/Paris").do(job)
 
 while True:
     schedule.run_pending()
