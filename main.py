@@ -16,7 +16,6 @@ logging.basicConfig(filename='./output/output.log',
                     format='%(asctime)s : %(message)s',
                     datefmt='%d/%m/%Y %H:%M:%S')
 
-DATE_JOUR = datetime.today().strftime("%d/%m")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 NOTION_API_TOKEN = os.getenv("NOTION_API_TOKEN")
 NOTION_DATABASE_ID = "31c4b817bea9492e96c1cc12dcf18843"
@@ -44,7 +43,7 @@ def getBirthdatesFromNotion():
 def checkTodayBirthdays(birthdates):
     birthdays_today = []
     for contact in birthdates:
-        if contact['birthdate'] == DATE_JOUR:
+        if contact['birthdate'] == datetime.today().strftime("%d/%m"):
             birthdays_today.append(contact)
     return birthdays_today
 
@@ -65,7 +64,7 @@ def sendEmail(today_birthdates):
     params: resend.Emails.SendParams = {
         "from": "anniv.lgna.fr <ajd@anniv.lgna.fr>",
         "to": ["gas.cothias@gmail.com"],
-        "subject": "Anniversaire(s) du jour ("+DATE_JOUR+")",
+        "subject": "Anniversaire(s) du jour ("+datetime.today().strftime("%d/%m")+")",
         "html":
         """
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
