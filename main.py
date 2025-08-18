@@ -62,7 +62,7 @@ def generatePTags(today_birthdays):
 
 def sendEmail(today_birthdates):
     params: resend.Emails.SendParams = {
-        "from": "anniv@lgna.fr <anniv@lgna.fr>",
+        "from": "anniv-lgna <anniv@lgna.fr>",
         "to": ["gas.cothias@gmail.com"],
         "subject": "Anniversaire(s) du jour ("+datetime.today().strftime("%d/%m")+")",
         "html":
@@ -110,8 +110,8 @@ def job():
         logging.info("Pas d'anniversaire ce jour")
     # print("Fin du programme")
 
-schedule.every(1).minutes.do(job)
-# schedule.every().day.at("08:37", "Europe/Paris").do(job)
+# schedule.every(1).minutes.do(job)
+schedule.every().day.at("08:37", "Europe/Paris").do(job)
 
 while True:
     schedule.run_pending()
